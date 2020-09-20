@@ -1,8 +1,8 @@
 <template>
-  <!-- <div id="nav">
+  <div id="nav">
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div> -->
+    <router-link to="/todo">todo</router-link>
+  </div>
   <router-view/>
 </template>
 
@@ -14,3 +14,11 @@
   color: #2c3e50;
 }
 </style>
+
+<script>
+import useTodo from './compose/useTodo';
+
+export default {
+    
+}
+</script>

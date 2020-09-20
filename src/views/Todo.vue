@@ -3,6 +3,9 @@
         Todo
     </h3>
     <div>
+        <div>
+            Total Items: {{todo.totalItems.value}}
+        </div>
         <ul>
             <li v-for="todoItem in todo.state.items" :key="todoItem.id"  style="border: 1px solid lightgray; padding: 10px; margin-bottom: 5px;">
                 <div>
@@ -31,75 +34,28 @@
             <button type="button" @click="todo.handleSubmit">Submit Todo</button>    
         </div>
     </div>
+    <router-link to="/"> Home </router-link>
+
 </template>
 
 <script>
-import { reactive, watch, ref } from 'vue';
+import useTodo from '@/compose/useTodo';
 import InputNormal from '@/components/InputNormal.vue';
-
-function useTodo() {
-    let state = reactive({
-        items: [
-            {
-                id: 1,
-                title: '1',
-                complete: false,
-            }
-        ],
-        title: '',
-    })
-
-    function handleSubmit() {
-        state.items = [...state.items, {
-            id: Math.random(),
-            title: state.title,
-            complete: false
-        }];
-
-        state.title = '';
-    }
-
-    function setComplete(id) {
-        const _items = [...state.items].map(item => {
-            if(item.id == id) {
-                return {
-                    ...item,
-                    complete: true,
-                }
-            } else {
-                return item;
-            }
-        });
-        state.items = _items;
-    }
-
-    function removeItem(id) {
-        const _items = [...state.items].filter(item => {
-            return item.id != id;
-        });
-        state.items = _items;
-    }
-
-    return {
-        state,
-        setComplete,
-        handleSubmit,
-        removeItem,
-    }
-}
 
 export default {
     name: 'Todo',
     components: {
         InputNormal
     },
-    setup() {
+
+    setup(props, context) {
         const todo = useTodo();
+
+        console.log(todo);
 
         return {
             todo,
         }
     }
-   
 }
 </script>
